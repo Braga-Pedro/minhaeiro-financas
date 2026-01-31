@@ -40,20 +40,48 @@ export const HomeScreen: FC<HomeScreenProps> = function HomeScreen() {
         <Text style={themed($sectionTitle)}>Despesas por categoria</Text>
 
         <View style={themed($categoryRow)}>
+          {/* line 2 */}
           <View style={themed($categoryColumn)}>
-            <Text style={themed($categoryName)}>Aluguel</Text>
-            <Text style={themed($categoryValue)}>R$ 500</Text>
+            {/* <Text style={themed($categoryName)}>        </Text>
+            <Text style={themed($categoryValue)}>      </Text> */}
           </View>
           <View style={themed($categoryColumn)}>
             <Text style={themed($categoryName)}>Out</Text>
-            <Text style={themed($categoryValue)}>R$ 300</Text>
           </View>
           <View style={themed($categoryColumn)}>
             <Text style={themed($categoryName)}>Nov</Text>
-            <Text style={themed($categoryValue)}>R$ 500</Text>
           </View>
           <View style={themed($categoryColumn)}>
             <Text style={themed($categoryName)}>Dez</Text>
+          </View>
+        </View>
+        {/* line 2 */}
+        <View style={themed($categoryRow)}>
+          <View style={themed($categoryColumn)}>
+            <Text style={themed($categoryName)}>Aluguel</Text>
+          </View>
+          <View style={themed($categoryColumn)}>
+            <Text style={themed($categoryValue)}>R$ 300</Text>
+          </View>
+          <View style={themed($categoryColumn)}>
+            <Text style={themed($categoryValue)}>R$ 500</Text>
+          </View>
+          <View style={themed($categoryColumn)}>
+            <Text style={themed($categoryValue)}>R$ 600</Text>
+          </View>
+        </View>
+        {/* line 3 */}
+        <View style={themed($categoryRow)}>
+          <View style={themed($categoryColumn)}>
+            <Text style={themed($categoryName)}>Água</Text>
+          </View>
+          <View style={themed($categoryColumn)}>
+            <Text style={themed($categoryValue)}>R$ 300</Text>
+          </View>
+          <View style={themed($categoryColumn)}>
+            <Text style={themed($categoryValue)}>R$ 500</Text>
+          </View>
+          <View style={themed($categoryColumn)}>
             <Text style={themed($categoryValue)}>R$ 600</Text>
           </View>
         </View>
