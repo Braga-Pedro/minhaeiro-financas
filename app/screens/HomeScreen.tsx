@@ -7,12 +7,14 @@ import { useAppTheme } from "@/theme/context"
 import type { ThemedStyle } from "@/theme/types"
 import { useSafeAreaInsetsStyle } from "@/utils/useSafeAreaInsetsStyle"
 import { Icon } from "@/components/Icon"
+import { useNavigation } from "@react-navigation/native"
 
 interface HomeScreenProps {}
 
 export const HomeScreen: FC<HomeScreenProps> = function HomeScreen() {
   const { themed, theme } = useAppTheme()
   const $bottomInsets = useSafeAreaInsetsStyle(["bottom"])
+  const navigation = useNavigation()
 
   // static demo data for MVP
   const cards = [
@@ -40,49 +42,61 @@ export const HomeScreen: FC<HomeScreenProps> = function HomeScreen() {
         <Text style={themed($sectionTitle)}>Despesas por categoria</Text>
 
         <View style={themed($categoryRow)}>
-          {/* line 2 */}
-          <View style={themed($categoryColumn)}>
-            {/* <Text style={themed($categoryName)}>        </Text>
-            <Text style={themed($categoryValue)}>      </Text> */}
+          {/* header: A1 empty */}
+          <View style={themed($colName)} />
+          <View style={themed($colMonth)}>
+            <Text style={themed($colHeaderText)}>Out</Text>
           </View>
-          <View style={themed($categoryColumn)}>
-            <Text style={themed($categoryName)}>Out</Text>
+          <View style={themed($colMonth)}>
+            <Text style={themed($colHeaderText)}>Nov</Text>
           </View>
-          <View style={themed($categoryColumn)}>
-            <Text style={themed($categoryName)}>Nov</Text>
-          </View>
-          <View style={themed($categoryColumn)}>
-            <Text style={themed($categoryName)}>Dez</Text>
+          <View style={themed($colMonth)}>
+            <Text style={themed($colHeaderText)}>Dez</Text>
           </View>
         </View>
         {/* line 2 */}
         <View style={themed($categoryRow)}>
-          <View style={themed($categoryColumn)}>
+          <View style={themed($colName)}>
             <Text style={themed($categoryName)}>Aluguel</Text>
           </View>
-          <View style={themed($categoryColumn)}>
-            <Text style={themed($categoryValue)}>R$ 300</Text>
+          <View style={themed($colMonth)}>
+            <Text style={themed($colValueText)}>R$ 300</Text>
           </View>
-          <View style={themed($categoryColumn)}>
-            <Text style={themed($categoryValue)}>R$ 500</Text>
+          <View style={themed($colMonth)}>
+            <Text style={themed($colValueText)}>R$ 500</Text>
           </View>
-          <View style={themed($categoryColumn)}>
-            <Text style={themed($categoryValue)}>R$ 600</Text>
+          <View style={themed($colMonth)}>
+            <Text style={themed($colValueText)}>R$ 600</Text>
           </View>
         </View>
         {/* line 3 */}
         <View style={themed($categoryRow)}>
-          <View style={themed($categoryColumn)}>
+          <View style={themed($colName)}>
             <Text style={themed($categoryName)}>Água</Text>
           </View>
-          <View style={themed($categoryColumn)}>
-            <Text style={themed($categoryValue)}>R$ 300</Text>
+          <View style={themed($colMonth)}>
+            <Text style={themed($colValueText)}>R$ 300</Text>
           </View>
-          <View style={themed($categoryColumn)}>
-            <Text style={themed($categoryValue)}>R$ 500</Text>
+          <View style={themed($colMonth)}>
+            <Text style={themed($colValueText)}>R$ 500</Text>
           </View>
-          <View style={themed($categoryColumn)}>
-            <Text style={themed($categoryValue)}>R$ 600</Text>
+          <View style={themed($colMonth)}>
+            <Text style={themed($colValueText)}>R$ 600</Text>
+          </View>
+        </View>
+        {/* line 4 */}
+        <View style={themed($categoryRow)}>
+          <View style={themed($colName)}>
+            <Text style={themed($categoryName)}>Cartão de crédito</Text>
+          </View>
+          <View style={themed($colMonth)}>
+            <Text style={themed($colValueText)}>R$ 10.215,89</Text>
+          </View>
+          <View style={themed($colMonth)}>
+            <Text style={themed($colValueText)}>R$ 100.465,43</Text>
+          </View>
+          <View style={themed($colMonth)}>
+            <Text style={themed($colValueText)}>R$ 90060,24</Text>
           </View>
         </View>
       </View>
@@ -92,9 +106,12 @@ export const HomeScreen: FC<HomeScreenProps> = function HomeScreen() {
           <Icon icon="menu" size={24} color={theme.colors.palette.neutral700} />
         </TouchableOpacity>
 
-        {/* <TouchableOpacity style={themed($addButton)}>
-          <Icon icon="more" size={28} color={theme.colors.palette.neutral100} />
-        </TouchableOpacity> */}
+        <TouchableOpacity
+          style={themed($barButton)}
+          onPress={() => (navigation as any).navigate?.("TransactionForm")}
+        >
+          <Icon icon="more" size={24} color={theme.colors.palette.neutral700} />
+        </TouchableOpacity>
 
         <TouchableOpacity style={themed($barButton)}>
           <Icon icon="community" size={24} color={theme.colors.palette.neutral700} />
@@ -170,18 +187,36 @@ const $categoryRow: ThemedStyle<ViewStyle> = ({}) => ({
   justifyContent: "space-between",
 })
 
-const $categoryColumn: ThemedStyle<ViewStyle> = ({}) => ({
-  alignItems: "flex-start",
-})
-
 const $categoryName: ThemedStyle<TextStyle> = ({}) => ({
   fontSize: 14,
   marginBottom: 6,
 })
 
-const $categoryValue: ThemedStyle<TextStyle> = ({}) => ({
-  fontSize: 16,
+// column sizing for table-like layout
+const $colName: ThemedStyle<ViewStyle> = ({ spacing }) => ({
+  flexBasis: "25%",
+  maxWidth: "25%",
+  paddingRight: spacing.md,
+  justifyContent: "center",
+})
+
+const $colMonth: ThemedStyle<ViewStyle> = ({}) => ({
+  flexBasis: "25%",
+  maxWidth: "25%",
+  alignItems: "flex-end",
+  justifyContent: "center",
+})
+
+const $colHeaderText: ThemedStyle<TextStyle> = ({}) => ({
+  fontSize: 14,
   fontWeight: "700",
+  textAlign: "right",
+})
+
+const $colValueText: ThemedStyle<TextStyle> = ({}) => ({
+  fontSize: 12,
+  fontWeight: "700",
+  textAlign: "right",
 })
 
 const $bottomBar: ThemedStyle<ViewStyle> = ({ spacing, colors }) => ({
@@ -199,11 +234,11 @@ const $barButton: ThemedStyle<ViewStyle> = ({}) => ({
 })
 
 const $addButton: ThemedStyle<ViewStyle> = ({ colors }) => ({
-  width: 56,
   height: 56,
-  borderRadius: 28,
-  backgroundColor: colors.primary,
+  flexDirection: "row",
   alignItems: "center",
-  justifyContent: "center",
-  marginBottom: 28,
+  justifyContent: "space-around",
+  borderTopLeftRadius: 28,
+  borderTopRightRadius: 28,
+  backgroundColor: colors.palette.neutral100,
 })

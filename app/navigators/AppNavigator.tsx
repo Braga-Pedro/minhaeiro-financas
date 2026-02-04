@@ -13,6 +13,7 @@ import { LoginScreen } from "@/screens/LoginScreen"
 import { WelcomeScreen } from "@/screens/WelcomeScreen"
 import { HomeScreen } from "@/screens/HomeScreen"
 import { useAppTheme } from "@/theme/context"
+import { TransactionFormScreen } from "@/screens/TransactionFormScreen"
 
 import { DemoNavigator } from "./DemoNavigator"
 import type { AppStackParamList, NavigationProps } from "./navigationTypes"
@@ -44,6 +45,7 @@ const AppStack = () => {
       initialRouteName={"Home"}
     >
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="TransactionForm" component={TransactionFormScreen} />
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="Demo" component={DemoNavigator} />
 
