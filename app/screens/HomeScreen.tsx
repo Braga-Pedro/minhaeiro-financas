@@ -8,6 +8,7 @@ import type { ThemedStyle } from "@/theme/types"
 import { useSafeAreaInsetsStyle } from "@/utils/useSafeAreaInsetsStyle"
 import { Icon } from "@/components/Icon"
 import { useNavigation } from "@react-navigation/native"
+import { BottomNav } from "@/components/BottomNav"
 
 interface HomeScreenProps {}
 
@@ -100,23 +101,9 @@ export const HomeScreen: FC<HomeScreenProps> = function HomeScreen() {
           </View>
         </View>
       </View>
-
-      <View style={themed([$bottomBar, $bottomInsets])}>
-        <TouchableOpacity style={themed($barButton)}>
-          <Icon icon="menu" size={24} color={theme.colors.palette.neutral700} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={themed($barButton)}
-          onPress={() => (navigation as any).navigate?.("TransactionForm")}
-        >
-          <Icon icon="more" size={24} color={theme.colors.palette.neutral700} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={themed($barButton)}>
-          <Icon icon="community" size={24} color={theme.colors.palette.neutral700} />
-        </TouchableOpacity>
-      </View>
+      
+      {/* menu footer bar navigation */}
+      <BottomNav items={[{ route: "TransactionForm", icon: "caretRight" }]} />
     </Screen>
   )
 }
@@ -231,14 +218,4 @@ const $bottomBar: ThemedStyle<ViewStyle> = ({ spacing, colors }) => ({
 
 const $barButton: ThemedStyle<ViewStyle> = ({}) => ({
   padding: 12,
-})
-
-const $addButton: ThemedStyle<ViewStyle> = ({ colors }) => ({
-  height: 56,
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-around",
-  borderTopLeftRadius: 28,
-  borderTopRightRadius: 28,
-  backgroundColor: colors.palette.neutral100,
 })
